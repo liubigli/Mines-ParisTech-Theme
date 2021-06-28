@@ -1,0 +1,96 @@
+\usepackage{ifthen}
+%%% FONT SETTING %%%
+\usepackage[T1]{fontenc}
+\usepackage[lining]{InriaSans}
+\renewcommand*\oldstylenums[1]{{\fontfamily{InriaSans-OsF}\selectfont #1}}
+%% The font package uses mweights.sty which has som issues with the
+%% \normalfont command. The following two lines fixes this issue.
+\let\oldnormalfont\normalfont
+\def\normalfont{\oldnormalfont\mdseries}
+%%% END FONT SETTING %%%
+
+%%% package for tkit
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+
+%%% COLOR SETTINGS
+%%% logo mines colors
+\definecolor{minesblue}{RGB}{22, 91, 160}
+\definecolor{minesgray}{RGB}{157, 157, 156}
+\definecolor{minesblue2}{RGB}{28, 117, 205}
+\definecolor{complbrown}{RGB}{205, 116, 28}
+\definecolor{red}{RGB}{181, 23, 0}
+\definecolor{blue}{RGB}{0, 118, 186}
+\definecolor{gray}{RGB}{146, 146, 146}
+\definecolor{grayblocktitle}{RGB}{207, 211, 212}
+\definecolor{grayblockbody}{RGB}{229, 231, 231}
+\definecolor{alertred}{RGB}{244, 67, 54}
+
+\definecolor{forestgreen}{RGB}{34, 139, 34}
+
+\setbeamercolor{title}{bg=minesblue2, fg=minesblue}
+\setbeamercolor{section title}{fg=minesblue}
+\setbeamercolor{frametitle}{bg=minesblue, fg=white}
+\setbeamercolor{progress bar}{fg=green,bg=blue}
+\setbeamercolor{itemize item}{fg=minesblue2}
+\setbeamercolor{itemize subitem}{fg=minesblue2}
+\setbeamercolor{itemize subsubitem}{fg=minesblue2}
+\setbeamercolor{block title alerted}{%
+    use={block title, alerted text},
+    % bg=white,
+    fg=red
+}
+\setbeamercolor{block title example}{%
+    % bg=white,
+    fg=forestgreen,
+}
+
+\setbeamercolor{enumerate item}{fg=minesblue2}
+\setbeamercolor{enumerate subitem}{fg=minesblue2}
+\setbeamercolor{enumerate subsubitem}{fg=minesblue2}
+
+\setbeamercolor{sections item}{fg=minesblue2, bg=minesblue2}
+
+\setbeamercolor{background canvas}{bg=white}
+\setbeamercolor{progress bar}{bg=minesgray, fg=minesblue2}
+%%% END COLOR SETTING %%%
+
+%%% ENUMERATE AND ITEMIZE STYLE %%%
+\setbeamertemplate{itemize item}[circle]
+\setbeamertemplate{itemize subitem}[triangle]
+\setbeamertemplate{itemize subsubitem}[square]
+
+%%% END ENUMERATE AND ITEMIZE STYLE %%%
+
+%%% COMMAND THAT CHECKS ASPECT RATIO and PLACE MINES LOGO ACCORDINGLY
+\makeatletter
+\newcommand{\mineslogo}{
+    \titlegraphic{%
+        \begin{picture}(0,0)
+        \put(305,-130){\makebox(0,0)[rt]{\includegraphics[height=1.5cm]{Figs/Mines_paristech.png}}}
+        \end{picture}
+    }
+}
+\ifthenelse{ \lengthtest{\beamer@paperwidth=16cm} \AND \lengthtest{\beamer@paperheight=10cm}}% condition (16cm is the width of the frame with an aspect ratio = 16:9)
+    {\renewcommand{\mineslogo}{% do this if condition is true
+            \titlegraphic{%
+            \begin{picture}(0,0)
+                \put(395,-135){\makebox(0,0)[rt]{\includegraphics[height=1.5cm]{Figs/Mines_paristech.png}}}
+            \end{picture}
+            }
+        }
+    }{
+    \ifthenelse{\lengthtest{\beamer@paperwidth=16cm} \AND \lengthtest{\beamer@paperheight=9cm}}% condition (16cm is the width of the frame with an aspect ratio = 16:9)
+    {
+        \renewcommand{\mineslogo}{
+            \titlegraphic{%
+                \begin{picture}(0,0)
+                    \put(395,-120){\makebox(0,0)[rt]{\includegraphics[height=1.5cm]{Figs/Mines_paristech.png}}}
+                \end{picture}
+            }
+        }
+    }
+    }% do nothing elsewhere
+\makeatother
+% command that add mines-logo in the title
+\mineslogo
